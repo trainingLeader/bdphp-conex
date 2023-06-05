@@ -4,13 +4,14 @@
         private $settings;
         public function __construct() {
             // Requerir el archivo de configuración y asignarlo a $this->settings
-            $this->settings = require_once('config/connectionString.php');
+            $this->settings = require_once('../../config/connectionString.php');
         }
         
         public function getConnection($dbKey) {
             $dbConfig = $this->settings[$dbKey];
             $this->conn = null;
-            $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']};charset={$dbConfig['charset']}";
+           // $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']};charset={$dbConfig['charset']}";
+            $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']}";
             try{
                 $this->conn = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $dbConfig['flags']);
                 echo 'ok';
