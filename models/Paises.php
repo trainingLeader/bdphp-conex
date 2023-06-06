@@ -12,10 +12,19 @@
         public function saveData($data){
             $delimiter = ":";
             $dataBd = $this->sanitizarAttributos();
-            $cols = $delimiter . join(',:',array_keys($dataBd));
-            $sql = "INSERT INTO pais (nombre_pais) VALUES (:nombre_pais)";
+            $valCols = $delimiter . join(',:',array_keys($data));
+            $cols = join(',',array_keys($data));
+            $sql = "INSERT INTO pais ($cols) VALUES ($valCols)";
             $stmt= self::$conn->prepare($sql);
-            $stmt->execute($dataBd);
+            $stmt->execute($data);
+        }
+        public function loadAllData(){
+            $sql = "SELECT id_pais,nombre_pais FROM pais";
+            $stmt= self::$conn->prepare($sql);
+            //$stmt->setFetchMode(\PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $clientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $clientes;
         }
         public static function setConn($connBd){
             self::$conn = $connBd;
@@ -23,7 +32,7 @@
         public function atributos(){
             $atributos = [];
             foreach (self::$columnsTbl as $columna){
-                if($columna === 'id') continue;
+                if($columna === 'id_pais') continue;
                 $atributos [$columna]=$this->$columna;
              }
              return $atributos;
