@@ -1,10 +1,10 @@
 <?php 
+    namespace App;
     class Database{
         private $conn;
         private $settings;
-        public function __construct() {
-            // Requerir el archivo de configuración y asignarlo a $this->settings
-            $this->settings = require_once('../../config/connectionString.php');
+        public function __construct($setting) {
+            $this->settings = $setting;
         }
         
         public function getConnection($dbKey) {
@@ -13,9 +13,9 @@
            // $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']};charset={$dbConfig['charset']}";
             $dsn = "{$dbConfig['driver']}:host={$dbConfig['host']};dbname={$dbConfig['database']}";
             try{
-                $this->conn = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $dbConfig['flags']);
+                $this->conn = new \PDO($dsn, $dbConfig['username'], $dbConfig['password'], $dbConfig['flags']);
                 echo 'ok';
-            }catch(PDOException $exception){
+            }catch(\PDOException $exception){
                 $error=[[
                     'error' => $exception->getMessage(),
                     'message' => 'Error al momento de establecer conexion'

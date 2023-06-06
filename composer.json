@@ -1,0 +1,19 @@
+{
+    "name": "desarrollo/bdphp-conex",
+    "description": "Demo conexion entre php y mysql",
+    "type": "project",
+    "authors": [
+        {
+            "name": "trainingLeader",
+            "email": "131613955+trainingLeader@users.noreply.github.com"
+        }
+    ],
+    "require": {},
+    "autoload" :{
+        "psr-4":{
+            "App\\": "./clases",
+            "Conf\\": "./config",
+            "Models\\": "./models"
+        }
+    }
+}
